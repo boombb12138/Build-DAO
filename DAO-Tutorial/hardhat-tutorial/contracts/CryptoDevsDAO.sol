@@ -55,7 +55,7 @@ contract CryptoDevsDAO is Ownable {
     // 已经创建的提案数量
     uint256 public numProposals;
 
-    // 因为我们将调用这两个合约，所以要为这两个合约初始化变量
+    // 因为我们将调用这两个合约中的方法，所以要初始化这两个合约
     IFakeNFTMarketplace nftMarketplace;
     ICryptoDevsNFT cryptoDevsNFT;
 

@@ -8,7 +8,7 @@ contract FakeNFTMarketplace {
     // 每个假NFT的价格=0.1ether
     uint256 nftPrice = 0.1 ether;
 
-    // 接收ETH，并让tokenID的拥有者成为调用者
+    // purchase()接受ETH并将给定tokenId的所有者标记为调用者地址
     // _tokenId 购买的假的NFTtoken Id
     function purchase(uint256 _tokenId) external payable {
         require(msg.value == nftPrice, "This NFT costs 0.1 ether");
