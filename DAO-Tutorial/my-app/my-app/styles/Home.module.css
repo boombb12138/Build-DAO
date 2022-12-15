@@ -1,16 +1,22 @@
 .main {
+  position: relative;
   min-height: 90vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   font-family: "Courier New", Courier, monospace;
+  z-index: 100;
+}
+
+.maintop {
+  display: flex;
 }
 
 .footer {
   display: flex;
   padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
+  /* border-top: 1px solid #eaeaea; */
   justify-content: center;
   align-items: center;
 }
@@ -27,21 +33,23 @@
 }
 
 .description {
-  line-height: 1;
+  line-height: 1.5;
   margin: 2rem 0;
   font-size: 1.2rem;
 }
 
 .button {
-  border-radius: 4px;
-  background-color: blue;
+  border-radius: 20px;
+  background-color: #f3f8ff;
   border: none;
-  color: #ffffff;
+  color: #000000;
   font-size: 15px;
   padding: 10px;
   width: 200px;
   cursor: pointer;
   margin-right: 2%;
+  z-index: 100;
+  position: relative;
 }
 
 .button2 {
@@ -56,12 +64,33 @@
   margin-top: 1rem;
 }
 
+.proposalWrapper {
+  margin-top: 10px;
+  display: flex;
+  width: 940px;
+  flex-wrap: wrap;
+  z-index: 100;
+  position: relative;
+}
+
 .proposalCard {
+  z-index: 100;
   width: fit-content;
   margin-top: 0.25rem;
-  border: black 2px solid;
-  flex: 1;
+  border: rgb(118, 118, 118) 2px solid;
+  flex-shrink: 0;
+  width: 300px;
   flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  transition: box-shadow 200ms ease;
+  border-radius: 20px;
+}
+
+
+.proposalCard:hover {
+  box-shadow: 0 4px 4px rgba(242, 234, 234, 0.8);
 }
 
 .container {
@@ -71,6 +100,23 @@
 .flex {
   flex: 1;
   justify-content: space-between;
+}
+
+.canvas {
+  /* position: absolute !important;
+  top: 0 !important; */
+  /* left: 50% !important; */
+  width: 500px !important;
+  height: 400px !important;
+
+}
+
+.canvas canvas {
+  cursor: pointer;
+  height: 500px;
+  width: 450px;
+  position: relative;
+  z-index: 100;
 }
 
 @media (max-width: 1000px) {

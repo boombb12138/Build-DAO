@@ -1,10 +1,14 @@
 import { Contract, providers } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import web3Modal from "web3modal";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense, useCallback } from "react";
 import styles from "../styles/Home.module.css";
+import { Ethcoin } from "../components/Ethcoin";
+import ParticleComponents from "../components/ParticleComponents";
 
 import {
   CRYPTODEVS_DAO_ABI,
@@ -212,6 +216,7 @@ export default function Home() {
   // 每次' selectedTab '的值改变时运行的一段代码
   //当用户切换到'View Proposals'选项卡时，重新获取DAO中的所有提议
   useEffect(() => {
+    console.log("selectedTab");
     if (selectedTab === "View Proposal") {
       fetchAllProposals();
     }
@@ -272,7 +277,7 @@ export default function Home() {
       );
     } else {
       return (
-        <div>
+        <div className={styles.proposalWrapper}>
           {proposals.map((p, index) => (
             <div key={index} className={styles.proposalCard}>
               <p>Proposal ID: {p.proposalId}</p>
@@ -334,36 +339,46 @@ export default function Home() {
       </Head>
       <div className={styles.main}>
         <div>
-          <h1 className={styles.title}>Welcome to Crypto Devs!</h1>
-          <div className={styles.description}>Welcome to the DAO!</div>
-          <div className={styles.description}>
-            您的NFT余额: {nftBalance}
-            <br />
-            金库余额:{formatEther(treasuryBalance)} ETH
-            <br />
-            提案总数：{numProposals}
+          <div className={styles.maintop}>
+            <div>
+              <h1 className={styles.title}>Welcome to Crypto Devs!</h1>
+              <div className={styles.description}>Welcome to the DAO!</div>
+              <div className={styles.description}>
+                您的NFT余额: {nftBalance}
+                <br />
+                金库余额:{formatEther(treasuryBalance)} ETH
+                <br />
+                提案总数：{numProposals}
+              </div>
+              <div className={styles.flex}>
+                <button
+                  className={styles.button}
+                  onClick={() => setSelectedTab("Create Proposal")}
+                >
+                  创建提案
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={() => setSelectedTab("View Proposal")}
+                >
+                  查看提案
+                </button>
+              </div>
+            </div>
+            <Canvas className={styles.canvas}>
+              <OrbitControls enableZoom={false}></OrbitControls>
+              <ambientLight intensity={1.5} />
+              <directionalLight position={[-2, -1, 1]} intensity={12} />
+              <Suspense fallback={null}>
+                <Ethcoin />
+              </Suspense>
+            </Canvas>
           </div>
-          <div className={styles.flex}>
-            <button
-              className={styles.button}
-              onClick={() => setSelectedTab("Create Proposal")}
-            >
-              创建提案
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => setSelectedTab("View Proposal")}
-            >
-              查看提案
-            </button>
-          </div>
+
           {renderTabs()}
         </div>
-        <div>
-          <img className={styles.image} src="/cryptodevs/0.svg"></img>
-        </div>
       </div>
-
+      <ParticleComponents />
       <footer className={styles.footer}>Made with &#10084; by Naomi</footer>
     </div>
   );
